@@ -6,9 +6,9 @@
               android:padding="8dip"
               android:background="@color/WHITE"
         >
-    <LinearLayout  android:orientation="horizontal"
-                   android:layout_width="fill_parent"
-                   android:layout_height="wrap_content">
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="Taken by:"
@@ -20,9 +20,9 @@
                   android:id="@+id/username"
                   android:textColor="@color/BLACK"/>
     </LinearLayout>
-    <LinearLayout  android:orientation="horizontal"
-                   android:layout_width="fill_parent"
-                   android:layout_height="wrap_content">
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="Taken on:"
@@ -34,9 +34,9 @@
                   android:id="@+id/date"
                   android:textColor="@color/BLACK"/>
     </LinearLayout>
-    <LinearLayout  android:orientation="horizontal"
-                   android:layout_width="fill_parent"
-                   android:layout_height="wrap_content">
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="Description:"

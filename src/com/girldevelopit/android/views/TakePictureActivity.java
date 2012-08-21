@@ -22,11 +22,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+
 //this is the activity that the user will use to take a takepicture, add a title and description and save it to our list of pictures
 //it extends activity which is the android class that allows you to build any class that the user
 //interacts with
-public class TakePictureActivity extends Activity
-{
+public class TakePictureActivity extends Activity {
     private GirlDevelopIt app;
 
     //when we take or select a photo, we have to do something with the takepicture we get back
@@ -40,100 +40,94 @@ public class TakePictureActivity extends Activity
     private EditText descriptionField;
     private Button savePicture;
     //in order to save our image, we need to know the file name
-    private String pathToImage ="";
+    private String pathToImage = "";
 
-    /** Called when the activity is first created.
-     The code in here is what the phone goes through first
-     The @override is there because onCreate is a function in the Activity class we extended
-     we override the default functionality of that method. The default functionality is just to
-     create an acitivity that the user can see. we want to do that AND make that activity look
-     and act like the one we are trying to build. Every single activity in every single android
-     application has this function
+    /**
+     * Called when the activity is first created.
+     * The code in here is what the phone goes through first
+     * The @override is there because onCreate is a function in the Activity class we extended
+     * we override the default functionality of that method. The default functionality is just to
+     * create an acitivity that the user can see. we want to do that AND make that activity look
+     * and act like the one we are trying to build. Every single activity in every single android
+     * application has this function
      */
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.takepicture);
-        this.app = (GirlDevelopIt)getApplicationContext();
+        this.app = (GirlDevelopIt) getApplicationContext();
         initElements();
     }
 
-    private void initElements(){
-        pictureFromCamera = (ImageView)this.findViewById(R.id.pictureFromCamera);
-        titleField = (EditText)this.findViewById(R.id.titleField);
+    private void initElements() {
+        pictureFromCamera = (ImageView) this.findViewById(R.id.pictureFromCamera);
+        titleField = (EditText) this.findViewById(R.id.titleField);
         descriptionField = (EditText) this.findViewById(R.id.descriptionField);
         savePicture = (Button) this.findViewById(R.id.savePicture);
-        if(app.getUsername()==null || app.getUsername().equals("")){
+        if (app.getUsername() == null || app.getUsername().equals("")) {
             savePicture.setEnabled(false);
         }
     }
 
-    public void takePicture(View view){
+    public void takePicture(View view) {
         final Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(Utils.getTempFile(getApplicationContext())));
         startActivityForResult(intent, ACTIVITY_TAKE_PHOTO);
     }
 
-    public void choosePicture(View view){
+    public void choosePicture(View view) {
         startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), ACTIVITY_SELECT_PHOTO);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_CANCELED){
+        if (resultCode == RESULT_CANCELED) {
             return;
         }
-        if(requestCode == ACTIVITY_TAKE_PHOTO){
-            try{
-                pathToImage=Utils.getTempFile(getApplicationContext()).getAbsolutePath();
-                File takenFile=Utils.getTempFile(getApplicationContext());
+        if (requestCode == ACTIVITY_TAKE_PHOTO) {
+            try {
+                pathToImage = Utils.getTempFile(getApplicationContext()).getAbsolutePath();
+                File takenFile = Utils.getTempFile(getApplicationContext());
                 Bitmap thumbnailBmp = Utils.decodeFile(takenFile);
                 pictureFromCamera.setImageBitmap(thumbnailBmp);
                 pictureFromCamera.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                try
-                {
+                try {
                     FileOutputStream ostream = new FileOutputStream(takenFile);
                     thumbnailBmp.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
                     ostream.close();
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 System.gc();
 
-            }
-            catch(Exception exp){
+            } catch (Exception exp) {
                 Log.e("TakePhoto", exp.getMessage());
             }
         }
-        if(requestCode == ACTIVITY_SELECT_PHOTO){
-            try{
+        if (requestCode == ACTIVITY_SELECT_PHOTO) {
+            try {
                 System.gc();
                 String filePath = Utils.getPath(data.getData(), getContentResolver());
 
                 pathToImage = new String(filePath);
 
-                File selFile=new File(pathToImage);
+                File selFile = new File(pathToImage);
 
                 Bitmap thumbnailBmp = Utils.decodeFile(selFile);
                 pictureFromCamera.setImageBitmap(thumbnailBmp);
                 pictureFromCamera.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
-            }
-            catch(Exception exp){
+            } catch (Exception exp) {
                 Log.e("TakePhoto", exp.getMessage());
             }
         }
     }
 
-    public void save(View v){
+    public void save(View v) {
         String imageTitle = titleField.getText().toString();
         String imageDescription = descriptionField.getText().toString();
-        if(imageTitle.equals("") || imageDescription.equals("") || pathToImage.equals("")){
+        if (imageTitle.equals("") || imageDescription.equals("") || pathToImage.equals("")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Sorry, all fields are required")
                     .setCancelable(false)
@@ -144,8 +138,7 @@ public class TakePictureActivity extends Activity
                     });
             AlertDialog alert = builder.create();
             alert.show();
-        }
-        else{
+        } else {
             ImageModel imageModel = new ImageModel(imageTitle, app.getUsername(), imageDescription, pathToImage, new Date().getTime());
             ArrayList<ImageModel> imageList = app.getImages();
             imageList.add(0, imageModel);

@@ -17,6 +17,7 @@ public class Utils {
 
     /**
      * For image capture
+     *
      * @param cont
      * @return
      */
@@ -35,7 +36,7 @@ public class Utils {
      * @return
      */
     public static String getPath(Uri uri, ContentResolver resolver) {
-        String[] projection = { MediaStore.Images.Media.DATA };
+        String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = resolver.query(uri, projection, null, null, null);
         int column_index = cursor
                 .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -45,10 +46,11 @@ public class Utils {
 
     /**
      * decode image from file
+     *
      * @param f
      * @return
      */
-    public static Bitmap decodeFile(File f){
+    public static Bitmap decodeFile(File f) {
         Bitmap b = null;
         try {
             //Decode image size
@@ -62,7 +64,7 @@ public class Utils {
             int scale = 1;
             int image_size = 400;
             if (o.outHeight > image_size || o.outWidth > image_size) {
-                scale = (int)Math.pow(2, (int) Math.round(Math.log(image_size / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
+                scale = (int) Math.pow(2, (int) Math.round(Math.log(image_size / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
             }
 
             //Decode with inSampleSize

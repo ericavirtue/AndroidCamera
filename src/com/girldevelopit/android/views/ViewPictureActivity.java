@@ -24,37 +24,37 @@ public class ViewPictureActivity extends Activity {
     private TextView description;
     private ImageView image;
     private int imagePosition;
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewpicture);
-        this.app = (GirlDevelopIt)getApplicationContext();
+        this.app = (GirlDevelopIt) getApplicationContext();
         Bundle b;
         b = getIntent().getExtras();
         imagePosition = b.getInt("image_position");
         initElements();
     }
 
-    private void initElements(){
-        username = (TextView)this.findViewById(R.id.username);
-        date = (TextView)this.findViewById(R.id.date);
-        description = (TextView)this.findViewById(R.id.description);
-        image = (ImageView)this.findViewById(R.id.image);
+    private void initElements() {
+        username = (TextView) this.findViewById(R.id.username);
+        date = (TextView) this.findViewById(R.id.date);
+        description = (TextView) this.findViewById(R.id.description);
+        image = (ImageView) this.findViewById(R.id.image);
 
         ImageModel imageModel = app.getImages().get(imagePosition);
 
-        if(imageModel.getUsername()!=null) username.setText(imageModel.getUsername());
+        if (imageModel.getUsername() != null) username.setText(imageModel.getUsername());
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM dd, yyyy HH:mm", Locale.getDefault());
         Date d = new Date(imageModel.getDateCreated());
         date.setText(sdf.format(d));
 
-        if(imageModel.getDescription()!=null) description.setText(imageModel.getDescription());
+        if (imageModel.getDescription() != null) description.setText(imageModel.getDescription());
 
         String pathToImage = imageModel.getPathToImage();
         //get the file on the phone associated with that path name
-        File selFile=new File(pathToImage);
+        File selFile = new File(pathToImage);
         //make a bitmap out of the raw data of the file (remember computers still think everything is
         //all ones and zeroes so we have to explicitly tell it that our takepicture is in fact a takepicture
         Bitmap thumbnailBmp = Utils.decodeFile(selFile);

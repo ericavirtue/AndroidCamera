@@ -24,22 +24,23 @@ public class GalleryActivity extends Activity {
 
     //the only element on the page is a listview
     private ListView imageListView;
-    /** Called when the activity is first created.
-     The code in here is what the phone goes through first
-     The @override is there because onCreate is a function in the Activity class we extended
-     we override the default functionality of that method. The default functionality is just to
-     create an acitivity that the user can see. we want to do that AND make that activity look
-     and act like the one we are trying to build. Every single activity in every single android
-     application has this function
+
+    /**
+     * Called when the activity is first created.
+     * The code in here is what the phone goes through first
+     * The @override is there because onCreate is a function in the Activity class we extended
+     * we override the default functionality of that method. The default functionality is just to
+     * create an acitivity that the user can see. we want to do that AND make that activity look
+     * and act like the one we are trying to build. Every single activity in every single android
+     * application has this function
      */
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //set up which view we will be using
         setContentView(R.layout.gallery);
         //initialize our application
-        this.app = (GirlDevelopIt)getApplicationContext();
+        this.app = (GirlDevelopIt) getApplicationContext();
         //initialize the elements in our view
         initElements();
         //populate our list view with the images we have taken
@@ -50,8 +51,8 @@ public class GalleryActivity extends Activity {
      * set the value of imageListView to be the list view whose id we set in the layout.
      * set an on click listener to open up the view picture activity when you click on an item in the view
      */
-    private void initElements(){
-        imageListView = (ListView)this.findViewById(R.id.imageListView);
+    private void initElements() {
+        imageListView = (ListView) this.findViewById(R.id.imageListView);
 
         imageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -74,7 +75,7 @@ public class GalleryActivity extends Activity {
     /**
      * "Inflate" our list using the image list adapter
      */
-    private  void populateImagesList(){
+    private void populateImagesList() {
         //create an inflater that has the ability to build a view programmatically
         LayoutInflater mLInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //create an imagelistadapter with the arraylist of images we have saved in our app
@@ -83,6 +84,6 @@ public class GalleryActivity extends Activity {
         imageListView.setAdapter(listAdapter);
         //the next two lines inform the list view that it should load all the data from the adapter
         imageListView.invalidateViews();
-        ((BaseAdapter)imageListView.getAdapter()).notifyDataSetChanged();
+        ((BaseAdapter) imageListView.getAdapter()).notifyDataSetChanged();
     }
 }

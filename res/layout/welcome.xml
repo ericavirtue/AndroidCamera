@@ -3,15 +3,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-             android:orientation="vertical"
-             android:padding="8dip"
-             android:background="@color/WHITE">
+              android:orientation="vertical"
+              android:padding="8dip"
+              android:background="@color/WHITE">
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:text="Welcome text"
+              android:text="Welcome to my Camera App!"
               android:textColor="@color/PURPLE"
               android:id="@+id/welcomeText"
-            android:padding="16dip"/>
+              android:padding="16dip"/>
     <EditText android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:inputType="textCapSentences"
@@ -38,9 +38,9 @@
                 android:onClick="openGalleryActivity"/>
     </LinearLayout>
 
-    <RelativeLayout  android:layout_width="fill_parent"
-                     android:layout_height="fill_parent"
-        >
+    <RelativeLayout android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+            >
 
         <Button android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -49,6 +49,6 @@
                 android:layout_alignParentBottom="true"
                 android:id="@+id/logout"
                 />
-        </RelativeLayout>
+    </RelativeLayout>
 
 </LinearLayout>
